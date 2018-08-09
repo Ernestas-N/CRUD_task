@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class uzduotisController extends Controller
 {
     /**
-     * @Route("/uzd", name="uzduotis_sarasas")
+     * @Route("/", name="uzduotis_sarasas")
      */
     public function listAction()
     {

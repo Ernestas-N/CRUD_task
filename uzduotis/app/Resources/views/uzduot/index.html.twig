@@ -1,1 +1,30 @@
-blablala imdex
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<table class="table table-dark table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Vardas</th>
+      <th scope="col">Statusas</th>
+      <th scope="col">Data</th>
+      <th scope="col">Atlygis</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>padaryk</td>
+      <td>10</td>
+      <td>10</td>
+      <td>
+	      <a href="/uzduot/details/1" class="btn btn-success">Placiau</a>
+	      <a href="/uzduot/edit/1" class="btn btn-default">Redeguoti</a>
+	      <a href="/uzduot/delete/1" class="btn btn-danger">Trinti</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
