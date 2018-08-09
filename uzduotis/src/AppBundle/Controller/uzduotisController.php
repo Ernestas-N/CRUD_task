@@ -148,7 +148,6 @@ class uzduotisController extends Controller
         ));
     }
 
-
     /**
      * @Route("/uzduot/details/{id}", name="uzduot_details")
      */
@@ -158,8 +157,28 @@ class uzduotisController extends Controller
             ->getRepository('AppBundle:uzduotis')
             ->find($id);
         // replace this example code with whatever you need
-        return $this->render('uzduot/details.html.twig', array ('uzd'=>$uzd));
+        return $this->render('uzduot/details.html.twig', array(
+            'uzd'=>$uzd
+        ));
     }
 
+    /**
+     * @Route("/uzduot/delete/{id}", name="uzduot_delete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $uzduot = $em->getRepository('AppBundle:uzduotis')->find($id);
+
+        $em->remove($uzduot);
+        $em->flush();
+        $this->addFlash(
+            'notice',
+            'Uzduotis pasalinta'
+        );
+
+        return $this->redirectToRoute('uzduotis_sarasas');
+
+    }
 
 }
