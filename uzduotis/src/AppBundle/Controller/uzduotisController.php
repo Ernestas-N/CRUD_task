@@ -95,8 +95,11 @@ class uzduotisController extends Controller
      */
     public function detailsAction($id)
     {
+        $uzd = $this->getDoctrine()
+            ->getRepository('AppBundle:uzduotis')
+            ->find($id);
         // replace this example code with whatever you need
-        return $this->render('uzduot/details.html.twig');
+        return $this->render('uzduot/details.html.twig', array ('uzd'=>$uzd));
     }
 
 

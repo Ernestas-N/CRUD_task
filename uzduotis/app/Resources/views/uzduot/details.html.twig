@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	CRUD details
+	<a class= "btn btn-danger" href="/">Grizti atgal i sarasa</a>
+	<hr>
+	<h2 class= "page-header">{{uzd.name}}</h2>
+	<ul class="list-group">
+		<li class="list-group-item">Kategorija: {{uzd.category}}</li>
+		<li class="list-group-item">Statusas: {{uzd.priority}}</li>
+		<li class="list-group-item">Terminas: <strong> {{uzd.dueDate|date('F j, Y, g:i a')}}</li>
+	</ul
+	<p>
+		{{uzd.description}}
+	</p>
 {% endblock %}
