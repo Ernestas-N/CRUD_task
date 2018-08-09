@@ -86,9 +86,68 @@ class uzduotisController extends Controller
      */
     public function editAction($id, Request $request)
     {
+        $uzd = $this->getDoctrine()
+            ->getRepository('AppBundle:uzduotis')
+            ->find($id);
+
+            $now = new\DateTime('now');
+
+            $uzd->setName($uzd->getName());
+            $uzd->setCategory($uzd->getCategory());
+            $uzd->setDescription($uzd->getDescription());
+            $uzd->setPriority($uzd->getPriority());
+            $uzd->setDueDate($uzd->getDueDate());
+            $uzd->setPerson($uzd->getPerson());
+            $uzd->setcreateDate($now);
+
+        $form = $this->createFormBuilder($uzd)
+            ->add('name', TextType::class, array('label' =>'Uzduotis','attr'=>array('class'=>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('category', TextType::class, array('label' =>'Kategorija','attr'=>array('class'=>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('description', TextareaType::class, array('label' =>'Placiau','attr'=>array('class'=>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('priority', ChoiceType::class, array('label' =>'Statusas','choices'=>array('Low'=>'Zemas', 'Normal' => 'Normalus', 'High' =>'Aukstas'), 'attr'=>array('class'=>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('due_date', DateTimeType::class, array('attr'=>array('class'=>'formcontrol', 'style'=>'margin-bottom:15px')))
+            ->add('person', TextType::class, array('label' =>'Vardas','attr'=>array('class'=>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('save', SubmitType::class, array('label' =>'Redakuoti uzduoti', 'attr'=>array('class'=>'btn btn-primary', 'style'=>'margin-bottom:15px')))
+            ->getForm();
+
+        $form->handleRequest($request);
+            if($form->isSubmitted()&& $form->isValid()){
+                $name = $form['name']->getData();
+                $category = $form['category']->getData();
+                $description = $form['description']->getData();
+                $priority = $form['priority']->getData();
+                $due_date = $form['due_date']->getData();
+                $person = $form['person']->getData();
+
+                $now = new\DateTime('now');
+
+                $em = $this->getDoctrine()->getManager();
+                $uzduot = $em->getRepository('AppBundle:uzduotis')->find($id);
+
+                $uzduot->setName($name);
+                $uzduot->setCategory($category);
+                $uzduot->setDescription($description);
+                $uzduot->setPriority($priority);
+                $uzduot->setDueDate($due_date);
+                $uzduot->setPerson($person);
+                $uzduot->setcreateDate($now);
+
+                $em->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'Uzduotis atnaujinta'
+                );
+
+                return $this->redirectToRoute('uzduotis_sarasas');
+        }
         // replace this example code with whatever you need
-        return $this->render('uzduot/edit.html.twig');
+        return $this->render('uzduot/edit.html.twig', array (
+            'uzd'=>$uzd,
+            'form'=>$form->createView()
+        ));
     }
+
 
     /**
      * @Route("/uzduot/details/{id}", name="uzduot_details")
