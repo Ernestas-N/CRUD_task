@@ -63,6 +63,13 @@ class uzduotis
      */
     private $createDate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="person", type="string", length=255)
+     */
+    private $person;
+
 
     /**
      * Get id
@@ -168,6 +175,23 @@ class uzduotis
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    public function setPerson($person)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return string
+     */
+    public function getPerson()
+    {
+        return $this->person;
     }
 
     /**

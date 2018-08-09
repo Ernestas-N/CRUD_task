@@ -5,26 +5,28 @@
   <thead class="thead-light">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Vardas</th>
+      <th scope="col">Uzduotis</th>
       <th scope="col">Statusas</th>
       <th scope="col">Data</th>
-      <th scope="col">Atlygis</th>
+      <th scope="col">Vardas</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
+  {%for uzduotis in uzd%}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>padaryk</td>
-      <td>10</td>
-      <td>10</td>
+      <th scope="row">{{uzduotis.id}}</th>
+      <td>{{uzduotis.name}}</td>
+      <td>{{uzduotis.priority}}</td>
+      <td>{{uzduotis.dueDate|date('F j, Y, g:i a')}}</td>
+      <td>{{uzduotis.person}}</td>
       <td>
-	      <a href="/uzduot/details/1" class="btn btn-success">Placiau</a>
-	      <a href="/uzduot/edit/1" class="btn btn-default">Redeguoti</a>
-	      <a href="/uzduot/delete/1" class="btn btn-danger">Trinti</a>
+	      <a href="/uzduot/details/{{uzduotis.id}}" class="btn btn-success">Placiau</a>
+	      <a href="/uzduot/edit/{{uzduotis.id}}" class="btn btn-default">Redeguoti</a>
+	      <a href="/uzduot/delete/{{uzduotis.id}}" class="btn btn-danger">Trinti</a>
       </td>
     </tr>
+  {% endfor %}
   </tbody>
 </table>
 {% endblock %}
